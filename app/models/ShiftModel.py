@@ -9,4 +9,3 @@ class ShiftModel(Base):
     name = Column(String, index=True)
     start_time = Column(Time)
     end_time = Column(Time)
-    employees_needed = Column(Integer)
