@@ -1,4 +1,6 @@
 from sqlalchemy import Column, Integer, String, Time
+from sqlalchemy.orm import relationship
+
 from app.backend.database import Base
 
 
@@ -9,3 +11,5 @@ class ShiftModel(Base):
     name = Column(String, index=True)
     start_time = Column(Time)
     end_time = Column(Time)
+
+    assignments = relationship("EmployeeShiftAssignmentModel", back_populates="shift")
