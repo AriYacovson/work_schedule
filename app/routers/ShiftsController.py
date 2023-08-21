@@ -4,8 +4,6 @@ from sqlalchemy.orm import Session
 from starlette import status
 
 from app.backend.database import get_db
-from app.models.EmployeeModel import EmployeeModel
-from app.models.ShiftModel import ShiftModel
 from app.schemas.ShiftRequest import ShiftRequest
 from app.schemas.ShiftResponse import ShiftResponse
 from app.services import ShiftService
