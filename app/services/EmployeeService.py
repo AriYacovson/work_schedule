@@ -40,7 +40,9 @@ def create_employee(db, employee_request: EmployeeRequest) -> EmployeeResponse:
         return None
 
 
-def update_employee(db, employee_id: int, employee_request: EmployeeRequest) -> EmployeeResponse:
+def update_employee(
+    db, employee_id: int, employee_request: EmployeeRequest
+) -> EmployeeResponse:
     employee_model = get_employee_by_id(db, employee_id)
     if not employee_model:
         return None
@@ -63,7 +65,9 @@ def update_employee(db, employee_id: int, employee_request: EmployeeRequest) -> 
 
 def delete_employee(db, employee_id: int) -> bool:
     try:
-        result = db.query(EmployeeModel).filter(EmployeeModel.id == employee_id).delete()
+        result = (
+            db.query(EmployeeModel).filter(EmployeeModel.id == employee_id).delete()
+        )
         if not result:
             return False
         db.commit()
@@ -72,5 +76,3 @@ def delete_employee(db, employee_id: int) -> bool:
         logger.error(f"Failed to delete employee with id {employee_id}: {e}")
         db.rollback()
         return False
-
-

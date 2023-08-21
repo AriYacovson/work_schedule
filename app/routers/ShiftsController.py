@@ -8,10 +8,7 @@ from app.schemas.ShiftRequest import ShiftRequest
 from app.schemas.ShiftResponse import ShiftResponse
 from app.services import ShiftService
 
-router = APIRouter(
-    prefix="/shifts",
-    tags=["shifts"]
-)
+router = APIRouter(prefix="/shifts", tags=["shifts"])
 
 
 db_dependency = Annotated[Session, Depends(get_db)]
@@ -39,12 +36,14 @@ async def create_shift(db: db_dependency, shift_request: ShiftRequest):
 
 
 @router.put("/{shift_id}", status_code=status.HTTP_200_OK, response_model=ShiftResponse)
-async def update_shift(db: db_dependency,
-                       shift_request: ShiftRequest,
-                       shift_id: int = Path(gt=0)):
+async def update_shift(
+    db: db_dependency, shift_request: ShiftRequest, shift_id: int = Path(gt=0)
+):
     updated_shift = ShiftService.update_shift(db, shift_id, shift_request)
     if not updated_shift:
-        raise HTTPException(status_code=404, detail="Shift not found or failed to update.")
+        raise HTTPException(
+            status_code=404, detail="Shift not found or failed to update."
+        )
     return updated_shift
 
 
@@ -52,4 +51,6 @@ async def update_shift(db: db_dependency,
 async def delete_shift(db: db_dependency, shift_id: int = Path(gt=0)):
     success = ShiftService.delete_shift(db, shift_id)
     if not success:
-        raise HTTPException(status_code=404, detail="Shift not found or failed to delete.")
+        raise HTTPException(
+            status_code=404, detail="Shift not found or failed to delete."
+        )
