@@ -5,7 +5,6 @@ from sqlalchemy.orm import Session
 from starlette import status
 
 from app.backend.database import get_db
-from app.models.EmployeeModel import EmployeeModel
 from app.schemas.EmployeeRequest import EmployeeRequest
 from app.schemas.EmployeeResponse import EmployeeResponse
 from app.services import EmployeeService

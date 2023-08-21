@@ -1,6 +1,6 @@
 from sqlalchemy.exc import SQLAlchemyError
 
-from app.models.EmployeeModel import EmployeeModel
+from app.models.employee import EmployeeModel
 from app.schemas.EmployeeRequest import EmployeeRequest
 from app.schemas.EmployeeResponse import EmployeeResponse
 

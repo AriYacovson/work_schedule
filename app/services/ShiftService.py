@@ -1,6 +1,6 @@
 from sqlalchemy.exc import SQLAlchemyError
 
-from app.models.ShiftModel import ShiftModel
+from app.models.shift import ShiftModel
 from app.schemas.ShiftRequest import ShiftRequest
 from app.schemas.ShiftResponse import ShiftResponse
 import logging
