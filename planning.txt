@@ -1,0 +1,5 @@
+0) decide how to use the get in the EmployeeShiftAssignmentController
+1) add tests
+2) add more documentation
+3) add pagination (in EmployeeShiftAssignmentController)
+4) add filtering / sorting
