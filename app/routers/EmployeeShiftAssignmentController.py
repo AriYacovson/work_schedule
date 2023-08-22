@@ -18,12 +18,12 @@ router = APIRouter(prefix="/employee_shift_assignment", tags=["employee_shift_as
 db_dependency = Annotated[Session, Depends(get_db)]
 
 
-# @router.get("/", status_code=status.HTTP_200_OK, response_model=list[EmployeeShiftAssignmentResponse])
-# async def get_employee_shift_assignments(db: db_dependency):
-#     employee_shift_assignments = EmployeeShiftAssignmentService.get_employee_shift_assignments(db)
-#     if employee_shift_assignments:
-#         return employee_shift_assignments
-#     raise HTTPException(status_code=404, detail="EmployeeShiftAssignments not found.")
+@router.get("/", status_code=status.HTTP_200_OK, response_model=list[EmployeeShiftAssignmentResponse])
+async def get_employee_shift_assignments(db: db_dependency):
+    employee_shift_assignments = EmployeeShiftAssignmentService.get_employee_shift_assignments(db)
+    if employee_shift_assignments:
+        return employee_shift_assignments
+    raise HTTPException(status_code=404, detail="EmployeeShiftAssignments not found.")
 
 
 @router.get("/{employee_shift_assignment_id}", status_code=status.HTTP_200_OK)
@@ -33,16 +33,16 @@ async def get_employee_shift_assignment(db: db_dependency, employee_shift_assign
         return employee_shift_assignment
     raise HTTPException(status_code=404, detail="EmployeeShiftAssignment not found.")
 
-
-@router.get("/", status_code=status.HTTP_200_OK, response_model=list[EmployeeShiftAssignmentResponse])
-async def get_employee_shift_assignments(db: db_dependency, date: date | None = None):
-    if date:
-        employee_shift_assignments = EmployeeShiftAssignmentService.get_employee_shift_assignments_by_date(db, date)
-    else:
-        employee_shift_assignments = EmployeeShiftAssignmentService.get_employee_shift_assignments(db)
-    if employee_shift_assignments:
-        return employee_shift_assignments
-    raise HTTPException(status_code=404, detail="EmployeeShiftAssignments not found.")
+## get by date
+# @router.get("/", status_code=status.HTTP_200_OK, response_model=list[EmployeeShiftAssignmentResponse])
+# async def get_employee_shift_assignments(db: db_dependency, date: date | None = None):
+#     if date:
+#         employee_shift_assignments = EmployeeShiftAssignmentService.get_employee_shift_assignments_by_date(db, date)
+#     else:
+#         employee_shift_assignments = EmployeeShiftAssignmentService.get_employee_shift_assignments(db)
+#     if employee_shift_assignments:
+#         return employee_shift_assignments
+#     raise HTTPException(status_code=404, detail="EmployeeShiftAssignments not found.")
 
 
 @router.post("/", status_code=status.HTTP_201_CREATED, response_model=EmployeeShiftAssignmentResponse)
