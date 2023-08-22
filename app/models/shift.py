@@ -8,9 +8,9 @@ class ShiftModel(Base):
     __tablename__ = "shifts"
 
     id = Column(Integer, primary_key=True, index=True)
-    name = Column(String, index=True)
-    start_time = Column(Time)
-    end_time = Column(Time)
+    name = Column(String, index=True, nullable=False)
+    start_time = Column(Time, nullable=False)
+    end_time = Column(Time, nullable=False)
 
     assignments = relationship("EmployeeShiftAssignmentModel", back_populates="shift")
     unavailable_employees = relationship(
