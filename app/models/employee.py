@@ -15,3 +15,6 @@ class EmployeeModel(Base):
     role = Column(String)
 
     assignments = relationship("EmployeeShiftAssignmentModel", back_populates="employee")
+    unavailable_shifts = relationship(
+        "EmployeeUnavailableShiftModel", back_populates="employee"
+    )

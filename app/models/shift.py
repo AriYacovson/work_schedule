@@ -13,3 +13,6 @@ class ShiftModel(Base):
     end_time = Column(Time)
 
     assignments = relationship("EmployeeShiftAssignmentModel", back_populates="shift")
+    unavailable_employees = relationship(
+        "EmployeeUnavailableShiftModel", back_populates="shift"
+    )
