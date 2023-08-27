@@ -1,8 +1,8 @@
 from sqlalchemy.exc import SQLAlchemyError
 
 from app.models.employee import EmployeeModel
-from app.schemas.EmployeeRequest import EmployeeRequest
-from app.schemas.EmployeeResponse import EmployeeResponse
+from app.schemas.employee_request import EmployeeRequest
+from app.schemas.employee_response import EmployeeResponse
 
 import logging
 

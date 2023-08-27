@@ -5,8 +5,8 @@ from sqlalchemy.orm import Session
 from starlette import status
 
 from app.backend.database import get_db
-from app.schemas.EmployeeRequest import EmployeeRequest
-from app.schemas.EmployeeResponse import EmployeeResponse
+from app.schemas.employee_request import EmployeeRequest
+from app.schemas.employee_response import EmployeeResponse
 from app.services import EmployeeService
 
 router = APIRouter(prefix="/employee", tags=["employee"])

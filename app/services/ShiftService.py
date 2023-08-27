@@ -1,8 +1,8 @@
 from sqlalchemy.exc import SQLAlchemyError
 
 from app.models.shift import ShiftModel
-from app.schemas.ShiftRequest import ShiftRequest
-from app.schemas.ShiftResponse import ShiftResponse
+from app.schemas.shift_request import ShiftRequest
+from app.schemas.shift_response import ShiftResponse
 import logging
 
 logging.basicConfig(level=logging.ERROR)

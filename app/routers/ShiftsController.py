@@ -4,8 +4,8 @@ from sqlalchemy.orm import Session
 from starlette import status
 
 from app.backend.database import get_db
-from app.schemas.ShiftRequest import ShiftRequest
-from app.schemas.ShiftResponse import ShiftResponse
+from app.schemas.shift_request import ShiftRequest
+from app.schemas.shift_response import ShiftResponse
 from app.services import ShiftService
 
 router = APIRouter(prefix="/shifts", tags=["shifts"])
