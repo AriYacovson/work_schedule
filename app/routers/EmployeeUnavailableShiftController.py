@@ -69,6 +69,27 @@ async def create_employee_unavailable_shift(
     )
 
 
+@router.post(
+    "/from_text",
+    status_code=status.HTTP_201_CREATED
+)
+async def create_employee_unavailable_shifts_from_text(
+    db: db_dependency,
+    employee_id: int,
+    text: str
+):
+    new_employee_unavailable_shifts = (
+        EmployeeUnavailableShiftService.create_employee_unavailable_shifts_from_text(
+            db, employee_id, text
+        )
+    )
+    if new_employee_unavailable_shifts:
+        return status.HTTP_201_CREATED
+    raise HTTPException(
+        status_code=400, detail="Failed to create a new employee_unavailable_shift."
+    )
+
+
 @router.put(
     "/{employee_unavailable_shift_id}",
     status_code=status.HTTP_200_OK,

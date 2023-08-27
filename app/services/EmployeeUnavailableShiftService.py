@@ -3,6 +3,8 @@ from sqlalchemy.exc import SQLAlchemyError
 from datetime import date
 import logging
 
+from app.utils import openai_util
+
 from app.schemas.employee_unavailable_shift_request import (
     EmployeeUnavailableShiftRequest,
 )
@@ -55,6 +57,27 @@ def create_employee_unavailable_shift(
     except SQLAlchemyError as e:
         logger.error(f"Failed to create unavailable shift: {e}")
         return None
+
+
+def create_employee_unavailable_shifts_from_text(
+        db, employee_id: int, text: str
+) -> bool:
+    try:
+        unavailable_shifts = openai_util.extract_unavailable_shifts_from_text(
+            employee_id, text
+        )
+        unavailable_shifts = eval(unavailable_shifts)
+        for unavailable_shift in unavailable_shifts:
+            employee_unavailable_shift_model = EmployeeUnavailableShiftModel(
+                **unavailable_shift
+            )
+            db.add(employee_unavailable_shift_model)
+            db.commit()
+            db.refresh(employee_unavailable_shift_model)
+        return True
+    except SQLAlchemyError as e:
+        logger.error(f"Failed to create unavailable shift: {e}")
+        return False
 
 
 def update_employee_unavailable_shift(
