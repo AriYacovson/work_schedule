@@ -5,6 +5,10 @@ from app.routers import (
     EmployeeShiftAssignmentController,
     EmployeeUnavailableShiftController
 )
+import config
+from dotenv import load_dotenv
+
+load_dotenv(".env")
 
 app = FastAPI()
 
