@@ -18,3 +18,4 @@ class EmployeeModel(Base):
     unavailable_shifts = relationship(
         "EmployeeUnavailableShiftModel", back_populates="employee"
     )
+
