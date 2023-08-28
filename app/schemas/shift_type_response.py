@@ -1,11 +1,10 @@
-from datetime import time, date
+from datetime import time
 
 from pydantic import BaseModel
 
 
-class ShiftResponse(BaseModel):
+class ShiftTypeResponse(BaseModel):
     id: int
-    date: date
     name: str
     start_time: time
     end_time: time
