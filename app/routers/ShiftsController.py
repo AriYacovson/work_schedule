@@ -1,3 +1,4 @@
+from datetime import datetime
 from typing import Annotated
 from fastapi import APIRouter, Depends, HTTPException, Path
 from sqlalchemy.orm import Session
@@ -6,6 +7,7 @@ from starlette import status
 from app.backend.database import get_db
 from app.schemas.shift_request import ShiftRequest
 from app.schemas.shift_response import ShiftResponse
+from app.schemas.weekly_shift_request import WeeklyShiftRequest
 from app.services import ShiftService
 
 router = APIRouter(prefix="/shifts", tags=["shifts"])
@@ -33,6 +35,25 @@ async def create_shift(db: db_dependency, shift_request: ShiftRequest):
     if new_shift:
         return new_shift
     raise HTTPException(status_code=400, detail="Failed to create a new shift.")
+
+
+@router.post("/generate_weekly_shifts", status_code=status.HTTP_201_CREATED)
+async def generate_weekly_shifts(db: db_dependency, weekly_shift_request: WeeklyShiftRequest):
+    ShiftService.generate_weekly_shifts(db, weekly_shift_request.start_date)
+    return {"message": "Weekly shifts generated successfully."}
+
+
+
+
+
+# @router.post("/generate_weekly_shifts/", status_code=status.HTTP_201_CREATED)
+# async def generate_weekly_shifts(db: db_dependency, start_date: datetime.date):
+#     # success = ShiftService.generate_weekly_shifts(db, start_date)
+#     # if not success:
+#     #     raise HTTPException(
+#     #         status_code=400, detail="Failed to generate weekly shifts."
+#     #     )
+#     return True
 
 
 @router.put("/{shift_id}", status_code=status.HTTP_200_OK, response_model=ShiftResponse)

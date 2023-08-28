@@ -1,9 +1,10 @@
 import re
-from datetime import time
+from datetime import date, time
 from pydantic import BaseModel, Field, validator, field_validator
 
 
 class ShiftRequest(BaseModel):
+    date: date
     name: str = Field(min_length=3, max_length=100)
     start_time: time
     end_time: time
