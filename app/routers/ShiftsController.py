@@ -1,4 +1,3 @@
-from datetime import datetime
 from typing import Annotated
 from fastapi import APIRouter, Depends, HTTPException, Path
 from sqlalchemy.orm import Session
@@ -18,7 +17,10 @@ db_dependency = Annotated[Session, Depends(get_db)]
 
 @router.get("/", status_code=status.HTTP_200_OK)
 async def get_shifts(db: db_dependency):
-    return ShiftService.get_shifts(db)
+    shifts = ShiftService.get_shifts(db)
+    if shifts:
+        return shifts
+    raise HTTPException(status_code=404, detail="Shifts not found.")
 
 
 @router.get("/{shift_id}", status_code=status.HTTP_200_OK)
