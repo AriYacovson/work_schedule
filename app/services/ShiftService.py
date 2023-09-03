@@ -1,4 +1,4 @@
-from datetime import timedelta, datetime, time
+from datetime import timedelta
 
 from sqlalchemy.exc import SQLAlchemyError
 
@@ -40,36 +40,13 @@ def create_shift(db, shift_model: ShiftRequest) -> ShiftResponse:
         return None
 
 
-# def generate_weekly_shifts(db, start_date):
-#     shift_types = [("morning", timedelta(hours=7), timedelta(hours=15)),
-#                    ("afternoon", timedelta(hours=15), timedelta(hours=23)),
-#                    ("night", timedelta(hours=23), timedelta(hours=7))]
-#     for day in range(7):
-#         current_date = start_date + timedelta(days=day)
-#         for name, start, end in shift_types:
-#             shift_start_time = (datetime.combine(current_date, time(0, 0) + start).time())
-#             if end.days == 1:
-#                 shift_end_time = (end - timedelta(days=1)).time()
-#                 shift_date = current_date + timedelta(days=1)
-#             else:
-#                 shift_end_time = end.time()
-#                 shift_date = current_date
-#
-#             new_shift = ShiftModel(name=name, start_time=shift_start_time, end_time=shift_end_time, date=shift_date)
-#             db.add(new_shift)
-#     db.commit()
-#     return True
-
 def generate_weekly_shifts(db, start_date):
     for i in range(7):
-        new_shift = ShiftModel(name="morning", start_time=time(7, 0), end_time=time(15, 0),
-                               date=start_date + timedelta(days=i))
+        new_shift = ShiftModel(shift_type_id=1, date=start_date + timedelta(days=i))
         db.add(new_shift)
-        new_shift = ShiftModel(name="afternoon", start_time=time(15, 0), end_time=time(23, 0),
-                               date=start_date + timedelta(days=i))
+        new_shift = ShiftModel(shift_type_id=2, date=start_date + timedelta(days=i))
         db.add(new_shift)
-        new_shift = ShiftModel(name="night", start_time=time(23, 0), end_time=time(7, 0),
-                               date=start_date + timedelta(days=i))
+        new_shift = ShiftModel(shift_type_id=3, date=start_date + timedelta(days=i))
         db.add(new_shift)
     db.commit()
     return True
